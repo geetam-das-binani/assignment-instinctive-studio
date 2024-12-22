@@ -26,7 +26,7 @@ const Navbar = () => {
   const handleSearchTerm = (e) => {
     if (!e.target.value.trim()) {
       dispatch(setSearchTerm(""));
-      return;
+      
     }
     setSearch(e.target.value);
   };
