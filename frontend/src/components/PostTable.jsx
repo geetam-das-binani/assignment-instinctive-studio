@@ -7,6 +7,8 @@ import {
   setPostLoading,
   setPosts,
   deletePost,
+  setSearchTerm,
+  setPage,
 } from "../reducers/postReducer";
 import toast from "react-hot-toast";
 import Pagination from "./Pagination";
@@ -14,11 +16,11 @@ import { baseUrl } from "../constants/constant";
 
 const PostTable = () => {
   const dispatch = useDispatch();
-  const [page, setPage] = useState(1);
+
   const [totalPages, setTotalPages] = useState(0);
   const { error, loading, posts } = useSelector((state) => state.posts);
   const { user } = useSelector((state) => state.auth);
-  const { search: searchTerm } = useSelector((state) => state.posts);
+  const { search: searchTerm, page } = useSelector((state) => state.posts);
 
   const fetchPosts = async () => {
     try {
@@ -36,11 +38,15 @@ const PostTable = () => {
         dispatch(setPosts(response.data));
         setTotalPages(response.totalPages || 0);
       } else {
-        toast.error(response?.message || "Error fetching posts", { icon: "❌" });
+        toast.error(response?.message || "Error fetching posts", {
+          icon: "❌",
+        });
       }
     } catch (error) {
       console.log(error);
-      toast.error(error?.respose?.data?.message || "Error fetching posts", { icon: "❌" });
+      toast.error(error?.respose?.data?.message || "Error fetching posts", {
+        icon: "❌",
+      });
     }
   };
 
@@ -67,6 +73,9 @@ const PostTable = () => {
       toast.error(error?.message || "Error deleting post", { icon: "❌" });
     }
   };
+  const handlePageChange = (newPage) => {
+    dispatch(setPage(newPage));
+  };
   useEffect(() => {
     fetchPosts();
   }, [page, searchTerm]);
@@ -82,7 +91,7 @@ const PostTable = () => {
       <Pagination
         totalPages={totalPages}
         currentPage={page}
-        setPage={setPage}
+        setPage={handlePageChange}
       />
     </div>
   );

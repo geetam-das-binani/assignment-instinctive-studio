@@ -5,6 +5,7 @@ const initialState = {
   loading: false,
   error: null,
   search:"",
+  page:1
 };
 export const postSlice = createSlice({
   name: "posts",
@@ -29,12 +30,16 @@ export const postSlice = createSlice({
 
     setSearchTerm: (state, action) => {
       state.search = action.payload;
+      state.page = 1;
      
+    },
+    setPage: (state, action) => {
+      state.page = action.payload;
     },
     
   },
 });
 
 export default postSlice;
-export const { setPosts, setPostLoading, resetPostErrorLoading ,deletePost,setSearchTerm} =
+export const { setPosts, setPostLoading, resetPostErrorLoading ,deletePost,setSearchTerm,setPage} =
   postSlice.actions;
