@@ -36,7 +36,7 @@ const Navbar = () => {
       if (response.success) {
         dispatch(setUser(null));
         toast.success("Logout successful", { icon: "✅" });
-        navigate("/login");
+        
       } else {
         toast.error(response.message || "Something went wrong", { icon: "❌" });
       }
