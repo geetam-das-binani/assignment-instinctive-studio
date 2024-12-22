@@ -36,13 +36,11 @@ const PostTable = () => {
         dispatch(setPosts(response.data));
         setTotalPages(response.totalPages || 0);
       } else {
-        dispatch(setPostError(response.message));
+        toast.error(response?.message || "Error fetching posts", { icon: "❌" });
       }
     } catch (error) {
       console.log(error);
-      dispatch(
-        setPostError(error.response.data.message || "Error fetching posts")
-      );
+      toast.error(error?.respose?.data?.message || "Error fetching posts", { icon: "❌" });
     }
   };
 
