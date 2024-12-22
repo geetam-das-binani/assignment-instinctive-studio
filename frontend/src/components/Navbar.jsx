@@ -23,6 +23,13 @@ const Navbar = () => {
       dispatch(setSearchTerm(search || ""));
     }
   };
+  const handleSearchTerm = (e) => {
+    if (!e.target.value.trim()) {
+      dispatch(setSearchTerm(""));
+      return;
+    }
+    setSearch(e.target.value);
+  };
   const handleLogout = async () => {
     try {
       const { data: response } = await axios.post(
@@ -36,7 +43,6 @@ const Navbar = () => {
       if (response.success) {
         dispatch(setUser(null));
         toast.success("Logout successful", { icon: "✅" });
-        
       } else {
         toast.error(response.message || "Something went wrong", { icon: "❌" });
       }
@@ -52,7 +58,7 @@ const Navbar = () => {
           <input
             type="text"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => handleSearchTerm(e)}
             onKeyDown={(e) => handleSearch(e)}
             className="bg-transparent  outline-none ml-2 md:w-[31rem] sm:w-[20rem]"
             placeholder="Search by post id or title"
