@@ -13,4 +13,5 @@ export const monthsArray = [
     "Dec",
   ];
 
- export const baseUrl = import.meta.env.VITE_BASE_URL || "https://instinctive-studio.onrender.com"; 
+ export const baseUrl ="https://instinctive-studio.onrender.com"; 
+//  export const baseUrl = import.meta.env.VITE_BASE_URL || ""; 
